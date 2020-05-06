@@ -1,6 +1,9 @@
 import path from 'path';
 
-function canAccess(file: string, accessSync: (path: string) => void): boolean {
+export function canAccess(
+  file: string,
+  accessSync: (path: string) => void,
+): boolean {
   try {
     accessSync(file);
     return true;
@@ -10,11 +13,11 @@ function canAccess(file: string, accessSync: (path: string) => void): boolean {
 }
 
 export function darwin(): string[] {
-  throw 'Unsupporetd Platform: MacOS.';
+  throw 'Unsupported Platform: MacOS.';
 }
 
 export function linux(): string[] {
-  throw 'Unsupporetd Platform: Linux.';
+  throw 'Unsupported Platform: Linux.';
 }
 
 export function win32(
