@@ -6,7 +6,11 @@ import { binary, canAccess, homeDir } from '../src/steam_finder';
 let workDir: string;
 
 beforeEach(async () => {
-  workDir = await fs.mkdtemp(os.tmpdir());
+  let tmpDir = os.tmpdir();
+  if (!tmpDir.endsWith(path.sep)) {
+    tmpDir = `${tmpDir}${path.sep}`;
+  }
+  workDir = await fs.mkdtemp(tmpDir);
 });
 
 afterEach(() => fs.remove(workDir));
