@@ -7,6 +7,7 @@ let workDir: string;
 
 beforeEach(async () => {
   const tmpDir = os.tmpdir();
+  console.log({ tmpDir });
   workDir = await fs.mkdtemp(tmpDir);
   console.log({ tmpDir, workDir });
 });
