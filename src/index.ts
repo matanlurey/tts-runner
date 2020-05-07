@@ -74,7 +74,7 @@ class Launcher {
       case 'darwin':
       case 'linux':
       case 'win32':
-        return steamFinder[platform](accessSync, environment);
+        return steamFinder.binary[platform](accessSync, environment);
       default:
         throw new Error(`Unsupported Platform: ${platform}.`);
     }

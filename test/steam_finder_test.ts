@@ -1,7 +1,7 @@
 import fs from 'fs-extra';
 import os from 'os';
 import path from 'path';
-import { canAccess, win32 } from '../src/steam_finder';
+import { binary, canAccess, homeDir } from '../src/steam_finder';
 
 let workDir: string;
 
@@ -22,11 +22,11 @@ test('canAccess should fail on a missing existing file', async () => {
   expect(canAccess(file, fs.accessSync)).toEqual(false);
 });
 
-describe('win32', () => {
-  let binary: string;
+describe('binary.win32', () => {
+  let executable: string;
 
   beforeEach(() => {
-    binary = path.join(
+    executable = path.join(
       workDir,
       'Steam',
       'steamapps',
@@ -38,17 +38,26 @@ describe('win32', () => {
 
   test('should check Program Files', async () => {
     expect(
-      win32(() => true, {
+      binary.win32(() => true, {
         PROGRAMFILES: workDir,
       }),
-    ).toEqual([binary]);
+    ).toEqual([executable]);
   });
 
   test('should check Program Files (X86)', async () => {
     expect(
-      win32(() => true, {
+      binary.win32(() => true, {
         'PROGRAMFILES(X86)': workDir,
       }),
-    ).toEqual([binary]);
+    ).toEqual([executable]);
+  });
+});
+
+describe('homeDir.win32', () => {
+  test('should find the Tabletop Simulator user directory', () => {
+    const USERPROFILE = workDir;
+    expect(homeDir.win32({ USERPROFILE })).toEqual(
+      path.join(workDir, 'Documents', 'My Games', 'Tabletop Simulator'),
+    );
   });
 });

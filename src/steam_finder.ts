@@ -12,15 +12,15 @@ export function canAccess(
   }
 }
 
-export function darwin(): string[] {
+function darwinBinary(): string[] {
   throw 'Unsupported Platform: MacOS.';
 }
 
-export function linux(): string[] {
+function linuxBinary(): string[] {
   throw 'Unsupported Platform: Linux.';
 }
 
-export function win32(
+function win32Binary(
   accessSync: (path: string) => void,
   envDict: { [key: string]: string | undefined },
 ): string[] {
@@ -47,3 +47,31 @@ export function win32(
   );
   return installs;
 }
+
+export const binary = {
+  win32: win32Binary,
+  darwin: darwinBinary,
+  linux: linuxBinary,
+};
+
+function darwinHome(): string {
+  throw 'Unsupported Platform: MacOS.';
+}
+
+function linuxHome(): string {
+  throw 'Unsupported Platform: Linux.';
+}
+
+function win32Home(envDict: { [key: string]: string | undefined }): string {
+  const userProfile = envDict.USERPROFILE;
+  if (!userProfile) {
+    throw 'Could not find home directory.';
+  }
+  return path.join(userProfile, 'Documents', 'My Games', 'Tabletop Simulator');
+}
+
+export const homeDir = {
+  win32: win32Home,
+  dartwin: darwinHome,
+  linux: linuxHome,
+};
