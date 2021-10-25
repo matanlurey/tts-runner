@@ -72,6 +72,6 @@ function win32Home(envDict: { [key: string]: string | undefined }): string {
 
 export const homeDir = {
   win32: win32Home,
-  dartwin: darwinHome,
+  darwin: darwinHome,
   linux: linuxHome,
 };

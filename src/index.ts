@@ -130,7 +130,8 @@ class Launcher {
       detached: true,
     }));
     return {
-      pid: instance.pid,
+      // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+      pid: instance.pid!,
       process: instance,
       kill: this.kill.bind(this),
     };
