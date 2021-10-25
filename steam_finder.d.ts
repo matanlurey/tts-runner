@@ -16,7 +16,7 @@ declare function win32Home(envDict: {
 }): string;
 export declare const homeDir: {
     win32: typeof win32Home;
-    dartwin: typeof darwinHome;
+    darwin: typeof darwinHome;
     linux: typeof linuxHome;
 };
 export {};
